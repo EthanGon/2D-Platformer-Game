@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using TreeEditor;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class Player : MonoBehaviour
 {
@@ -113,12 +113,30 @@ public class Player : MonoBehaviour
             }
         }
 
-        // Check if the player touched a ground to reset the jump and rset last Y velocity
+        // Checks if you can force something to fall down while big with enough height.
+        // This makes the object fall down
+        if (collision.gameObject.CompareTag("Slamable") && IsGrounded()) 
+        {
+            if ((!isSmall && lastVelocityPosY >= 8.0f) || (!isSmall && lastVelocityNegY <= -10.0f))
+            {
+                Rigidbody2D collRB;
+                collRB = collision.gameObject.GetComponent<Rigidbody2D>();
+                collRB.bodyType = RigidbodyType2D.Dynamic;
+                /*collRB.velocity = new Vector2(0.0f, collRB.velocity.y);
+                collRB.angularVelocity = 0.0f; */
+                
+            }
+        }
+
+
+
+        // Check if the player touched a ground to reset the jump and reset last +Y and -Y velocity
         if (IsGrounded())
         {
             lastVelocityPosY = 0.0f;
             lastVelocityNegY = 0.0f;
         }
+
 
     }
 
