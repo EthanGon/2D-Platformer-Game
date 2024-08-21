@@ -99,6 +99,16 @@ public class Player : MonoBehaviour
         {
             state = AnimationState.idle;
         }
+
+        if (rb.velocity.y > 0.1f)
+        {
+            state = AnimationState.jumping;
+        }
+        else if (rb.velocity.y < -0.1f)
+        {
+            state = AnimationState.falling;
+        }
+
         anim.SetInteger("animation_state", (int)state);
     }
 
@@ -128,6 +138,17 @@ public class Player : MonoBehaviour
             }
         }
 
+        if (collision.gameObject.CompareTag("Box"))
+        {
+            if (isSmall)
+            {
+                collision.gameObject.GetComponent<Rigidbody2D>().mass = 1000000.0f;
+            }
+            else
+            {
+                collision.gameObject.GetComponent<Rigidbody2D>().mass = 1.0f;
+            }
+        }
 
 
         // Check if the player touched a ground to reset the jump and reset last +Y and -Y velocity

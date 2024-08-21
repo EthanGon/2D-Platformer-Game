@@ -7,6 +7,9 @@ TagManager:
   - BreakablePlatform
   - Ground
   - Slamable
+  - Box
+  - Spikes
+  - Apple
   layers:
   - Default
   - TransparentFX
